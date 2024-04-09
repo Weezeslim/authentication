@@ -1,0 +1,47 @@
+name: Deploy Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  app_deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository Checkout
+        uses: actions/checkout@v2
+      
+      - name: Python setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.2'
+
+      - name: Dependecies installation
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Migrations for django
+        run: python manage.py migrate
+
+      - name: Run django application
+        run: python manage.py runserver
+
+      - name: obtaining the name of the process
+        id: application_pid
+        run: |
+          pid=$(pgrep -f 'python manage.py runserver')
+          echo ":: set-output name=application_process_id::$pid"
+
+
+      # step to access the action for the performance evaluation tool
+      - name: Evaluate Ram usage
+        uses: actions/checkout@v2
+        with:
+          repository: fff
+          ref: main
+          path: .github/workflows/
+          process_id: ${{ steps.application_pid.outputs.application_process_id }}
+
+    
