@@ -26,7 +26,8 @@ jobs:
         run: python manage.py migrate
 
       - name: Run django application
-        run: python manage.py runserver
+        run: python manage.py runserver 0.0.0.0:8000 &
+        
 
       - name: obtaining the name of the process
         id: application_pid
