@@ -27,6 +27,9 @@ jobs:
 
       - name: Run django application
         run: python manage.py runserver 0.0.0.0:8000 
+
+      - name: Wait for server to start
+        run: sleep 10s
         
 
       - name: obtaining the name of the process
