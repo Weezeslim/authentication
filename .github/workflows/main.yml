@@ -41,11 +41,15 @@ jobs:
 
       # step to access the action for the performance evaluation tool
       - name: Evaluate Ram usage
+        id: monitor_ram
         uses: actions/checkout@v2
         with:
           repository: Weezeslim/monitor_application_performance
           ref: main
           path: .github/workflows/
           process_id: ${{ steps.application_pid.outputs.application_process_id }}
+
+      - name: Access output from ram analysis
+        run: echo "RAM usage:${{ steps.monitor_ram.outputs.ram_usage }}"
 
     
