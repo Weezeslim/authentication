@@ -82,9 +82,12 @@ jobs:
     #     path: .github/workflows/
     #e
     
-  external:
-    uses: Weezeslim/monitor_application_performance/.github/workflows/django.yml@main
-    needs:  use_external_workflow
+  use-reusable-workflow:
+    needs: use_external_workflow  
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use reusable workflow
+        uses: Weezeslim/monitor_application_performance/.github/workflows/django.yml@main
         
 
     
