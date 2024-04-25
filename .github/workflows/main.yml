@@ -1,59 +1,4 @@
-# name: Deploy Application
-
-# on:
-#   push:
-#     branches:
-#       - main
-
-# jobs:
-#   app_deployment:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Repository Checkout
-#         uses: actions/checkout@v2
-      
-#       - name: Python setup
-#         uses: actions/setup-python@v2
-#         with:
-#           python-version: '3.7.15'
-
-#       - name: Dependecies installation
-#         run: |
-#           python -m pip install --upgrade pip
-#           pip install -r requirements.txt
-
-#       - name: Migrations for django
-#         run: python manage.py migrate
-
-#       - name: Run django application
-#         run: python manage.py runserver 0.0.0.0:8000 &
-
-#       - name: Wait for server to start
-#         run: sleep 10s
-        
-
-#       - name: obtaining the name of the process
-#         id: application_pid
-#         run: |
-#           pid=$(pgrep -f 'python manage.py runserver')
-#           echo ":: set-output name=application_process_id::$pid"
-
-
-#       # step to access the action for the performance evaluation tool
-#       - name: Evaluate Ram usage
-#         id: monitor_ram
-#         uses: actions/checkout@v2
-#         with:
-#           repository: Weezeslim/monitor_application_performance
-#           ref: main
-#           path: .github/workflows/
-#           process_id: ${{ steps.application_pid.outputs.application_process_id }}
-
-#       - name: Access output from ram analysis
-#         run: echo "RAM usage:${{ steps.monitor_ram.outputs.ram_usage }}"
-
-
-name: external
+name: Deploy Application
 
 on:
   push:
@@ -61,26 +6,81 @@ on:
       - main
 
 jobs:
-  use_external_workflow:
+  app_deployment:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Repository Checkout
+        uses: actions/checkout@v2
+      
+      - name: Python setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7.15'
 
-    - name: Python setup
-      uses: actions/setup-python@v2
-      with:
-         python-version: '3.7.15'
+      - name: Dependecies installation
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Evaluate Ram usage
-      id: external
-      uses: actions/checkout@v2
-      with:
-        repository: Weezeslim/monitor_application_performance
-        ref: main
-        path: .github/workflows/
+      - name: Migrations for django
+        run: python manage.py migrate
 
-    - name:   Get external workflow output
-      run: echo "Sum of 1 and 2 from external workflow:${{steps.external.outputs.sum_result}}"
+      - name: Run django application
+        run: python manage.py runserver 0.0.0.0:8000 &
+
+      - name: Wait for server to start
+        run: sleep 10s
+        
+
+      - name: obtaining the name of the process
+        id: application_pid
+        run: |
+          pid=$(pgrep -f 'python manage.py runserver')
+          echo ":: set-output name=application_process_id::$pid"
+
+
+      # step to access the action for the performance evaluation tool
+      - name: Evaluate Ram usage
+        id: monitor_ram
+        uses: actions/checkout@v2
+        with:
+          repository: Weezeslim/monitor_application_performance
+          ref: main
+          path: .github/workflows/
+          process_id: ${{ steps.application_pid.outputs.application_process_id }}
+
+      - name: Access output from ram analysis
+        run: echo "RAM usage:${{ steps.monitor_ram.outputs.ram_usage }}"
+
+
+# name: external
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   use_external_workflow:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v2
+
+#     - name: Python setup
+#       uses: actions/setup-python@v2
+#       with:
+#          python-version: '3.7.15'
+
+#     - name: Evaluate Ram usage
+#       id: external
+#       uses: actions/checkout@v2
+#       with:
+#         repository: Weezeslim/monitor_application_performance
+#         ref: main
+#         path: .github/workflows/
+
+#     - name:   Get external workflow output
+#       run: echo "Sum of 1 and 2 from external workflow:${{steps.external.outputs.sum_result}}"
     
