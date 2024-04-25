@@ -82,5 +82,5 @@ jobs:
         path: .github/workflows/
 
     - name:   Get external workflow output
-      run: echo "Sum of 1 and 2 from external workflow:${{steps.external.outputs.output}"
+      run: echo "Sum of 1 and 2 from external workflow:${{steps.external.outputs.output}}"
     
