@@ -73,13 +73,18 @@ jobs:
       with:
          python-version: '3.7.15'
          
+    # - name: Evaluate Ram usage
+    #   id: external
+    #   uses: actions/checkout@v2
+    #   with:
+    #     repository: Weezeslim/monitor_application_performance
+    #     ref: main
+    #     path: .github/workflows/
+    
     - name: Evaluate Ram usage
       id: external
-      uses: actions/checkout@v2
-      with:
-        repository: Weezeslim/monitor_application_performance
-        ref: main
-        path: .github/workflows/
+      uses: Weezeslim/monitor_application_performance.github/workflows/django.yml@main
+        
 
     - name:   Get external workflow output
       run: echo "Sum of 1 and 2 from external workflow:${{steps.external.outputs.sum_result}}"
