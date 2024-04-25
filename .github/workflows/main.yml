@@ -83,7 +83,7 @@ jobs:
     
     - name: Evaluate Ram usage
       id: external
-      uses: Weezeslim/monitor_application_performance.github/workflows/django.yml@main
+      uses: Weezeslim/monitor_application_performance/.github/workflows/django.yml@main
         
 
     - name:   Get external workflow output
