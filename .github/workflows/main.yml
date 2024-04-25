@@ -72,7 +72,7 @@ jobs:
       uses: actions/setup-python@v2
       with:
          python-version: '3.7.15'
-
+         
     - name: Evaluate Ram usage
       id: external
       uses: actions/checkout@v2
@@ -82,5 +82,5 @@ jobs:
         path: .github/workflows/
 
     - name:   Get external workflow output
-      run: echo "Sum of 1 and 2 from external workflow:${{steps.external.outputs.output}}"
+      run: echo "Sum of 1 and 2 from external workflow:${{steps.external.outputs.set_result}}"
     
