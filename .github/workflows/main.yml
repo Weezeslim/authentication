@@ -83,11 +83,9 @@ jobs:
     #e
     
   use-reusable-workflow:
-    needs: use_external_workflow  
-    runs-on: ubuntu-latest
-    steps:
-      - name: Use reusable workflow
-        uses: Weezeslim/monitor_application_performance/.github/workflows/django.yml@main
+    name: Use Reusable Workflow
+    needs: use_external_workflow  # Specify the dependency
+    uses: Weezeslim/monitor_application_performance/.github/workflows/django.yml@main
         
 
     
