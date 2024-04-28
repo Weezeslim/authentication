@@ -39,8 +39,7 @@ jobs:
         run: |
           pid=$(pgrep -f 'python manage.py runserver')
           echo ":: set-output name=application_process_id::$pid"
-          ps -p 1803 1804 -o pid,cmd
-
+ 
           
 
       # step to access the action for the performance evaluation tool
