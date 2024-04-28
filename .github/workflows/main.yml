@@ -45,7 +45,7 @@ jobs:
       # step to access the action for the performance evaluation tool
       - name: Evaluate ram usage
         id: monitor_ram
-        uses: nahloo-obi/githubaction/jsactions@v1.32
+        uses: nahloo-obi/githubaction/jsactions@v1.33
         with:
           benchmark: 100
           
