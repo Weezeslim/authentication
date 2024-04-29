@@ -1,4 +1,4 @@
-name: Deploy Application
+name: Test application performance
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  app_deployment:
+  test_deployment:
     runs-on: ubuntu-latest
     steps:
       - name: Repository Checkout
@@ -47,7 +47,7 @@ jobs:
         id: monitor_ram
         uses: Weezeslim/application-performance/jsactions@v1.7
         with:
-          benchmark: 20
+          benchmark: 50
           
       # Use the output from the `evaluate` step
       - name: Get the output script result
