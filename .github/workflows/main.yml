@@ -47,7 +47,7 @@ jobs:
         id: monitor_ram
         uses: nahloo-obi/githubaction/jsactions@v3.3
         with:
-          benchmark: 100
+          benchmark: 20
           
       # Use the output from the `evaluate` step
       - name: Get the output script result
